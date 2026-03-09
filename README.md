@@ -130,6 +130,18 @@ get-email-records --period 7d --limit 10
 get-email-records --list-types
 ```
 
+## AI Skill
+
+本專案支援 [Skills](https://skills.sh/) 生態系，可讓 AI 助手自動學會使用此 CLI。
+
+### 安裝 Skill
+
+```bash
+npx skills add vollocare/Get-email-records
+```
+
+安裝後，AI 助手會自動知道如何查詢信件記錄。
+
 ## JSON 輸出結構
 
 ```json
