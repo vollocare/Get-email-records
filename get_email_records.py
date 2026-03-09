@@ -57,6 +57,11 @@ def parse_args(argv=None):
         default=100,
         help="Max number of records (default: 100)",
     )
+    parser.add_argument(
+        "--list-types",
+        action="store_true",
+        help="List all distinct mail_type values in the database",
+    )
     parser.add_argument("--supabase-url", help="Supabase URL (or SUPABASE_URL env)")
     parser.add_argument("--supabase-key", help="Supabase Key (or SUPABASE_KEY env)")
 
@@ -171,6 +176,21 @@ def main():
         sys.exit(1)
 
     client = create_client(url, key)
+
+    if args.list_types:
+        data = client.table("email_records").select("mail_type").execute()
+        types = sorted({r["mail_type"] for r in data.data if r.get("mail_type")})
+        if args.fmt == "json":
+            print(json.dumps({"types": types}, ensure_ascii=False, indent=2))
+        else:
+            if not types:
+                print("No mail types found.")
+            else:
+                print(f"Found {len(types)} mail type(s):\n")
+                for t in types:
+                    print(f"  - {t}")
+        return
+
     query, query_info = build_query(client, args)
     data = query.execute()
     format_output(data, query_info, args.fmt)

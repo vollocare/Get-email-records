@@ -96,6 +96,7 @@ uv run get-email-records [OPTIONS]
 |------|------|
 | `--type TYPE` | 依 `mail_type` 精確篩選 |
 | `--keyword TEXT` | 搜尋 `subject` 和 `content_summary`（伺服器端模糊比對） |
+| `--list-types` | 列出資料庫中所有不重複的 `mail_type` 值 |
 
 ### 輸出控制
 
@@ -124,6 +125,9 @@ get-email-records --from 2026-03-01T00:00:00 --to 2026-03-09T00:00:00
 
 # 限制回傳筆數
 get-email-records --period 7d --limit 10
+
+# 列出所有信件類型
+get-email-records --list-types
 ```
 
 ## JSON 輸出結構
